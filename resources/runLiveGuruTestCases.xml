@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<suite name="Live Guru" parallel="false">
+  <test name="Run on firefox">
+    <classes>
+<!--       <class name="com.liveguru.user.Level_01_RepeatYourSelf"/> -->
+<!--       <class name="com.liveguru.user.Level_02_Common_Function_01"/> -->
+<!--       <class name="com.liveguru.user.Level_02_Common_Function_02"/> -->
+      <class name="com.liveguru.user.Level_03_Page_Object"/>
+    </classes>
+  </test> 
+</suite> 
