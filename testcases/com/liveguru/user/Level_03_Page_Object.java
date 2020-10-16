@@ -33,7 +33,7 @@ public class Level_03_Page_Object extends AbstractPages {
 	@BeforeClass
 	public void beforeClass() {
 
-		System.setProperty("webdriver.gecko.driver", "./browserDriver/geckodriver72");
+		System.setProperty("webdriver.gecko.driver", "./browserDriver/geckodriver");
 		driver = new FirefoxDriver();
 
 		driver.get("http://live.demoguru99.com");
