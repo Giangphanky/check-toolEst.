@@ -16,8 +16,33 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-public abstract class AbstractPages {
+import pageObjects.liveGuru.AboutUsPageObjects;
+import pageObjects.liveGuru.ContactUsPageObjects;
+import pageObjects.liveGuru.PageGeneratorManager;
+import pageUIs.liveGuru.AbstractPageUI;
+import pageUIs.liveGuru.HomePageUI;
 
+public abstract class AbstractPages {
+	
+	//Define to open page objects
+	public AboutUsPageObjects openNewAboutUsLink(WebDriver driver) {
+		waitElementVisible(driver, AbstractPageUI.ABOUT_US_LINK);
+		clickToElement(driver, AbstractPageUI.ABOUT_US_LINK);
+		return PageGeneratorManager.getAboutUsPage(driver);
+		
+	}
+	
+	public ContactUsPageObjects openContactUsLink(WebDriver driver) {
+		waitElementVisible(driver, AbstractPageUI.CONTACT_US_LINK);
+		clickToElement(driver, AbstractPageUI.CONTACT_US_LINK);
+		return PageGeneratorManager.getContactUsPage(driver);
+	}
+
+	public void openDynamicPage(WebDriver driver, String pageName) {
+		waitElementVisible(driver, AbstractPageUI.DYNAMIC_LINK, pageName);
+		clickToElement(driver, AbstractPageUI.DYNAMIC_LINK, pageName);
+	}
+	
 	public void setImplicitWait(WebDriver driver, long timeout) {
 		driver.manage().timeouts().implicitlyWait(timeout, TimeUnit.SECONDS);
 	}
@@ -113,6 +138,11 @@ public abstract class AbstractPages {
 		driver.switchTo().window(parentID);
 	}
 
+	public String castRestParameter(String xpathValues, String... values) {
+		xpathValues =  String.format(xpathValues, (Object[])values);
+		return xpathValues;
+	}	
+	
 	public WebElement find(WebDriver driver, String xpathValue) {
 		return driver.findElement(byXpath(xpathValue));
 	}
@@ -128,9 +158,19 @@ public abstract class AbstractPages {
 	public void clickToElement(WebDriver driver, String xpathValue) {
 		find(driver, xpathValue).click();
 	}
+	
+	public void clickToElement(WebDriver driver, String xpathValue, String ... values) {
+		find(driver, castRestParameter(xpathValue, values)).click();
+	}
 
 	public void sendKeysToElement(WebDriver driver, String xpathValue, String text) {
 		element = find(driver, xpathValue);
+		element.clear();
+		element.sendKeys(text);
+	}
+	
+	public void sendKeysToElement(WebDriver driver, String xpathValue, String text, String ...values) {
+		element = find(driver, castRestParameter(xpathValue, values));
 		element.clear();
 		element.sendKeys(text);
 	}
@@ -178,6 +218,11 @@ public abstract class AbstractPages {
 		element = find(driver, xpathValue);
 		return element.getText();
 	}
+	
+	public String getElementText(WebDriver driver, String xpathValue, String ... values) {
+		element = find(driver, castRestParameter(xpathValue, values));
+		return element.getText();
+	}
 
 	public int countElementNumber(WebDriver driver, String xpathValue) {
 		elements = finds(driver, xpathValue);
@@ -200,6 +245,10 @@ public abstract class AbstractPages {
 
 	public boolean isElementDisplayed(WebDriver driver, String xpathValue) {
 		return find(driver, xpathValue).isDisplayed();
+	}
+	
+	public boolean isElementDisplayed(WebDriver driver, String xpathValue, String ... values) {
+		return find(driver, castRestParameter(xpathValue, values)).isDisplayed();
 	}
 
 	public boolean isElementEnabled(WebDriver driver, String xpathValue) {
@@ -304,6 +353,13 @@ public abstract class AbstractPages {
 		
 	}
 	
+	public void waitElementVisible(WebDriver driver, String xpathValue, String ... values) {
+		explicitWait = new WebDriverWait(driver, longTimeOut);
+		xpathValue = castRestParameter(xpathValue, values);
+		explicitWait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(byXpath(xpathValue)));
+		
+	}
+	
 	public void waitElementInvisible(WebDriver driver, String xpathValue) {
 		explicitWait = new WebDriverWait(driver, longTimeOut);
 		explicitWait.until(ExpectedConditions.invisibilityOfElementLocated(byXpath(xpathValue)));
@@ -316,12 +372,17 @@ public abstract class AbstractPages {
 		
 	}
 	
+	public void waitElementClickable(WebDriver driver, String xpathValue, String ... values) {
+		explicitWait = new WebDriverWait(driver, longTimeOut);
+		xpathValue = castRestParameter(xpathValue, values);
+		explicitWait.until(ExpectedConditions.elementToBeClickable(byXpath(xpathValue)));
+		
+	}
+	
 	 public void waitElementPresence(WebDriver driver, String xpathValue) {
 		explicitWait = new WebDriverWait(driver, longTimeOut);
 		explicitWait.until(ExpectedConditions.presenceOfElementLocated(byXpath(xpathValue)));
 	}
-	
-	
 	 
 	public void sleepInSeconds(long time) {
 		try {

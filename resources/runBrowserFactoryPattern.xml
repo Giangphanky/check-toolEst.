@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<suite name="Live Guru" parallel="false">
+	<parameter name="url" value="http://live.demoguru99.com" />
+	<test name="Run on firefox">
+		<parameter name="browser" value="firefox" />
+		<classes>
+			<class name="com.liveguru.user.Level_05_Browser_Factory_Pattern" />
+		</classes>
+	</test>
+	<test name="Run on chrome">
+		<parameter name="browser" value="chrome" />
+		<classes>
+			<class name="com.liveguru.user.Level_05_Browser_Factory_Pattern" />
+		</classes>
+	</test>
+</suite> 

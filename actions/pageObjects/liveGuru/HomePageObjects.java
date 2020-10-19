@@ -22,9 +22,10 @@ public class HomePageObjects extends AbstractPages{
 	public HomePageObjects(WebDriver driver) {
 		this.driver = driver;
 	}
-	public void clickToMyAccountLink() {
+	public LoginPageObjects clickToMyAccountLink() {
 		waitElementClickable(driver, HomePageUI.MY_ACCOUNT_LINK);
 		clickToElement(driver, HomePageUI.MY_ACCOUNT_LINK) ;
+		return PageGeneratorManager.getLoginPage(driver);
 	}
 
 }

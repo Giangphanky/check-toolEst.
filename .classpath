@@ -7,7 +7,7 @@
 	<classpathentry kind="src" path="actions"/>
 	<classpathentry kind="src" path="interfaces"/>
 	<classpathentry kind="src" path="resources"/>
-	<classpathentry kind="lib" path="lib/selenium-server-standalone-3.141.59.jar"/>
+	<classpathentry kind="lib" path="lib/selenium-server-standalone-3.141.59.jar" sourcepath="lib/selenium-server-standalone-3.141.59.jar"/>
 	<classpathentry kind="lib" path="lib/testng-6.14.3.jar"/>
 	<classpathentry kind="lib" path="libWebdriverManager/commons-codec-1.13.jar"/>
 	<classpathentry kind="lib" path="libWebdriverManager/commons-compress-1.20.jar"/>

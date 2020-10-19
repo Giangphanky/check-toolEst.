@@ -5,14 +5,14 @@ import org.openqa.selenium.WebDriver;
 import commons.AbstractPages;
 import pageUIs.liveGuru.LoginPageUI;
 
-public class LoginPageObjects extends AbstractPages{
-	
+public class LoginPageObjects extends AbstractPages {
+
 	private WebDriver driver;
-	
+
 	public LoginPageObjects(WebDriver driver) {
 		this.driver = driver;
 	}
-	
+
 	public void inputToEmail(String string) {
 		waitElementVisible(driver, LoginPageUI.EMAIL_TEXTBOX);
 		sendKeysToElement(driver, LoginPageUI.EMAIL_TEXTBOX, string);
@@ -20,7 +20,13 @@ public class LoginPageObjects extends AbstractPages{
 
 	public void clickToLoginButton() {
 		waitElementClickable(driver, LoginPageUI.LOGIN_BUTTON);
-		clickToElement(driver, LoginPageUI.LOGIN_BUTTON); 
+		clickToElement(driver, LoginPageUI.LOGIN_BUTTON);
+	}
+
+	public MyDashboardPageObjects clickToLoginButtonLoginSuccess() {
+		waitElementClickable(driver, LoginPageUI.LOGIN_BUTTON);
+		clickToElement(driver, LoginPageUI.LOGIN_BUTTON);
+		return new MyDashboardPageObjects(driver);
 	}
 
 	public void inputToPassword(String string) {
