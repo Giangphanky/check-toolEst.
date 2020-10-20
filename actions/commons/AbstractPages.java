@@ -20,18 +20,17 @@ import pageObjects.liveGuru.AboutUsPageObjects;
 import pageObjects.liveGuru.ContactUsPageObjects;
 import pageObjects.liveGuru.PageGeneratorManager;
 import pageUIs.liveGuru.AbstractPageUI;
-import pageUIs.liveGuru.HomePageUI;
 
 public abstract class AbstractPages {
-	
-	//Define to open page objects
+
+	// Define to open page objects
 	public AboutUsPageObjects openNewAboutUsLink(WebDriver driver) {
 		waitElementVisible(driver, AbstractPageUI.ABOUT_US_LINK);
 		clickToElement(driver, AbstractPageUI.ABOUT_US_LINK);
 		return PageGeneratorManager.getAboutUsPage(driver);
-		
+
 	}
-	
+
 	public ContactUsPageObjects openContactUsLink(WebDriver driver) {
 		waitElementVisible(driver, AbstractPageUI.CONTACT_US_LINK);
 		clickToElement(driver, AbstractPageUI.CONTACT_US_LINK);
@@ -42,11 +41,11 @@ public abstract class AbstractPages {
 		waitElementVisible(driver, AbstractPageUI.DYNAMIC_LINK, pageName);
 		clickToElement(driver, AbstractPageUI.DYNAMIC_LINK, pageName);
 	}
-	
+
 	public void setImplicitWait(WebDriver driver, long timeout) {
 		driver.manage().timeouts().implicitlyWait(timeout, TimeUnit.SECONDS);
 	}
-	
+
 	public void openPageUrl(WebDriver driver, String url) {
 		driver.get(url);
 	}
@@ -74,7 +73,7 @@ public abstract class AbstractPages {
 	public void forwardToPage(WebDriver driver) {
 		driver.navigate().forward();
 	}
-	
+
 	public void waitAlertPresence(WebDriver driver) {
 		explicitWait = new WebDriverWait(driver, longTimeOut);
 		explicitWait.until(ExpectedConditions.alertIsPresent());
@@ -103,7 +102,7 @@ public abstract class AbstractPages {
 		alert = driver.switchTo().alert();
 		alert.sendKeys(text);
 	}
-	
+
 	public void switchToWindowByTitle(WebDriver driver, String title) {
 		Set<String> allWindow = driver.getWindowHandles();
 
@@ -139,10 +138,10 @@ public abstract class AbstractPages {
 	}
 
 	public String castRestParameter(String xpathValues, String... values) {
-		xpathValues =  String.format(xpathValues, (Object[])values);
+		xpathValues = String.format(xpathValues, (Object[]) values);
 		return xpathValues;
-	}	
-	
+	}
+
 	public WebElement find(WebDriver driver, String xpathValue) {
 		return driver.findElement(byXpath(xpathValue));
 	}
@@ -158,8 +157,8 @@ public abstract class AbstractPages {
 	public void clickToElement(WebDriver driver, String xpathValue) {
 		find(driver, xpathValue).click();
 	}
-	
-	public void clickToElement(WebDriver driver, String xpathValue, String ... values) {
+
+	public void clickToElement(WebDriver driver, String xpathValue, String... values) {
 		find(driver, castRestParameter(xpathValue, values)).click();
 	}
 
@@ -168,8 +167,8 @@ public abstract class AbstractPages {
 		element.clear();
 		element.sendKeys(text);
 	}
-	
-	public void sendKeysToElement(WebDriver driver, String xpathValue, String text, String ...values) {
+
+	public void sendKeysToElement(WebDriver driver, String xpathValue, String text, String... values) {
 		element = find(driver, castRestParameter(xpathValue, values));
 		element.clear();
 		element.sendKeys(text);
@@ -218,8 +217,8 @@ public abstract class AbstractPages {
 		element = find(driver, xpathValue);
 		return element.getText();
 	}
-	
-	public String getElementText(WebDriver driver, String xpathValue, String ... values) {
+
+	public String getElementText(WebDriver driver, String xpathValue, String... values) {
 		element = find(driver, castRestParameter(xpathValue, values));
 		return element.getText();
 	}
@@ -246,8 +245,8 @@ public abstract class AbstractPages {
 	public boolean isElementDisplayed(WebDriver driver, String xpathValue) {
 		return find(driver, xpathValue).isDisplayed();
 	}
-	
-	public boolean isElementDisplayed(WebDriver driver, String xpathValue, String ... values) {
+
+	public boolean isElementDisplayed(WebDriver driver, String xpathValue, String... values) {
 		return find(driver, castRestParameter(xpathValue, values)).isDisplayed();
 	}
 
@@ -315,13 +314,14 @@ public abstract class AbstractPages {
 
 	public boolean isImageLoaded(WebDriver driver, String xpathValue) {
 		jsExecutor = (JavascriptExecutor) driver;
-		boolean status = (boolean) jsExecutor.executeScript("return arguments[0].complete && typeof arguments[0].naturalWidth != 0", find(driver, xpathValue));
-		
-		if(status)
+		boolean status = (boolean) jsExecutor.executeScript(
+				"return arguments[0].complete && typeof arguments[0].naturalWidth != 0", find(driver, xpathValue));
+
+		if (status)
 			return true;
 		return false;
 	}
-	
+
 	public boolean areJQueryAndJSLoadedSuccess(WebDriver driver) {
 		explicitWait = new WebDriverWait(driver, longTimeOut);
 		jsExecutor = (JavascriptExecutor) driver;
@@ -350,40 +350,77 @@ public abstract class AbstractPages {
 	public void waitElementVisible(WebDriver driver, String xpathValue) {
 		explicitWait = new WebDriverWait(driver, longTimeOut);
 		explicitWait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(byXpath(xpathValue)));
-		
+
 	}
-	
-	public void waitElementVisible(WebDriver driver, String xpathValue, String ... values) {
+
+	public void waitElementVisible(WebDriver driver, String xpathValue, String... values) {
 		explicitWait = new WebDriverWait(driver, longTimeOut);
 		xpathValue = castRestParameter(xpathValue, values);
 		explicitWait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(byXpath(xpathValue)));
-		
+
 	}
-	
+
 	public void waitElementInvisible(WebDriver driver, String xpathValue) {
 		explicitWait = new WebDriverWait(driver, longTimeOut);
 		explicitWait.until(ExpectedConditions.invisibilityOfElementLocated(byXpath(xpathValue)));
-		
+
 	}
-	
+
 	public void waitElementClickable(WebDriver driver, String xpathValue) {
 		explicitWait = new WebDriverWait(driver, longTimeOut);
 		explicitWait.until(ExpectedConditions.elementToBeClickable(byXpath(xpathValue)));
-		
+
 	}
-	
-	public void waitElementClickable(WebDriver driver, String xpathValue, String ... values) {
+
+	public void waitElementClickable(WebDriver driver, String xpathValue, String... values) {
 		explicitWait = new WebDriverWait(driver, longTimeOut);
 		xpathValue = castRestParameter(xpathValue, values);
 		explicitWait.until(ExpectedConditions.elementToBeClickable(byXpath(xpathValue)));
-		
+
 	}
-	
-	 public void waitElementPresence(WebDriver driver, String xpathValue) {
+
+	public void waitElementPresence(WebDriver driver, String xpathValue) {
 		explicitWait = new WebDriverWait(driver, longTimeOut);
 		explicitWait.until(ExpectedConditions.presenceOfElementLocated(byXpath(xpathValue)));
 	}
-	 
+
+	public boolean isWindows() {
+		return (osName.toLowerCase().indexOf("win") >= 0);
+	}
+
+	public boolean isMac() {
+		return (osName.toLowerCase().indexOf("mac") >= 0);
+	}
+
+	public boolean isUnix() {
+		return (osName.toLowerCase().indexOf("nix") >= 0 || osName.toLowerCase().indexOf("nux") >= 0 || osName.toLowerCase().indexOf("aix") > 0);
+	}
+
+	public boolean isSolaris() {
+		return (osName.toLowerCase().indexOf("sunos") >= 0);
+	}
+	
+	public String getDirectorySlash(String folderName) {
+		if (isMac() || isUnix() || isSolaris()) {
+			folderName = "/" + folderName + "/";
+		} else {
+			folderName = "\\" + folderName + "\\";
+		}
+		return folderName;
+	}
+	
+	public void upLoadMultipleFiles(WebDriver driver, String ... fileNames) {
+
+		String filePath = System.getProperty("user.dir") + getDirectorySlash("uploadFiles")	;
+		String fullFileName = "";
+		
+		for (String file : fileNames) {
+			fullFileName = fullFileName + filePath + file + "\n";
+		}
+		fullFileName = fullFileName.trim();
+		sendKeysToElement(driver, pageUIs.github.AbstractPageUI.UP_LOAD_FILE_TYPE, fullFileName);
+	}
+
 	public void sleepInSeconds(long time) {
 		try {
 			Thread.sleep(1000 * time);
@@ -402,5 +439,5 @@ public abstract class AbstractPages {
 	private Actions action;
 	private WebDriverWait explicitWait;
 	private JavascriptExecutor jsExecutor;
-
+	private String osName = System.getProperty("os.name");
 }

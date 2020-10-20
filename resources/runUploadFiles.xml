@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<suite name="Live Guru" parallel="false">
+	<parameter name="url" value="http://blueimp.github.io/jQuery-File-Upload/" />
+	<test name="Run on firefox">
+		<parameter name="browser" value="firefox" />
+		<classes>
+			<class name="com.liveguru.user.Level_12_Upload_Files" />
+		</classes>
+	</test>
+	<test name="Run on chrome">
+		<parameter name="browser" value="chrome" />
+		<classes>
+			<class name="com.liveguru.user.Level_12_Upload_Files" />
+		</classes>
+	</test>
+	<!-- <test name="Run on Safari">
+		<parameter name="browser" value="safari" />
+		<classes>
+			<class name="com.liveguru.user.Level_10_Switch_Page_WebDriver_Cycle" />
+		</classes>
+	</test> -->
+</suite> 
