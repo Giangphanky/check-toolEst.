@@ -20,7 +20,7 @@ import commons.AbstractTest;
 import driverFactory.DriverManager;
 import driverFactory.DriverManagerFactory;
 import pageObjects.liveGuru.HomePageObjects;
-import pageObjects.liveGuru.LoginPageObjects;
+import pageObjects.liveGuru.LoginUserPageObjects;
 import pageObjects.liveGuru.MyDashboardPageObjects;
 import pageObjects.liveGuru.RegisterPageObjects;
 
@@ -28,7 +28,7 @@ public class Level_05_Browser_Factory_Pattern extends AbstractTest {
 	WebDriver driver;
 	private DriverManager driverManager;
 	private HomePageObjects homePage;
-	private LoginPageObjects loginPage;
+	private LoginUserPageObjects loginPage;
 	private RegisterPageObjects registerPage;
 	private MyDashboardPageObjects myDashboarbPage;
 	
@@ -46,7 +46,7 @@ public class Level_05_Browser_Factory_Pattern extends AbstractTest {
 	public void beforeMethod() {
 		// Click vào link My Account -> Mở ra trang Login
 		homePage.clickToMyAccountLink();
-		loginPage = new LoginPageObjects(driver);
+		loginPage = new LoginUserPageObjects(driver);
 	}
 	
 	@Test

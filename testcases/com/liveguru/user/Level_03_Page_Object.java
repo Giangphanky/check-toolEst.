@@ -18,7 +18,7 @@ import org.testng.annotations.Test;
 import commons.AbstractPage2;
 import commons.AbstractPages;
 import pageObjects.liveGuru.HomePageObjects;
-import pageObjects.liveGuru.LoginPageObjects;
+import pageObjects.liveGuru.LoginUserPageObjects;
 import pageObjects.liveGuru.MyDashboardPageObjects;
 import pageObjects.liveGuru.RegisterPageObjects;
 import pageUIs.liveGuru.MyDashboardPageUI;
@@ -26,7 +26,7 @@ import pageUIs.liveGuru.MyDashboardPageUI;
 public class Level_03_Page_Object extends AbstractPages {
 	WebDriver driver;
 	HomePageObjects homePage;
-	LoginPageObjects loginPage;
+	LoginUserPageObjects loginPage;
 	RegisterPageObjects registerPage;
 	MyDashboardPageObjects myDashboarbPage;
 
@@ -48,7 +48,7 @@ public class Level_03_Page_Object extends AbstractPages {
 	public void beforeMethod() {
 		// Click vào link My Account -> Mở ra trang Login
 		homePage.clickToMyAccountLink();
-		loginPage = new LoginPageObjects(driver);
+		loginPage = new LoginUserPageObjects(driver);
 	}
 	
 	@Test

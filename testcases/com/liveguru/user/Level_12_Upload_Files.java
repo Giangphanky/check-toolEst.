@@ -24,7 +24,7 @@ import pageObjects.github.UploadPageObjects;
 import pageObjects.liveGuru.AboutUsPageObjects;
 import pageObjects.liveGuru.ContactUsPageObjects;
 import pageObjects.liveGuru.HomePageObjects;
-import pageObjects.liveGuru.LoginPageObjects;
+import pageObjects.liveGuru.LoginUserPageObjects;
 import pageObjects.liveGuru.MyDashboardPageObjects;
 import pageObjects.liveGuru.RegisterPageObjects;
 

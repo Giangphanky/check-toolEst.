@@ -19,14 +19,14 @@ import org.testng.annotations.Test;
 import commons.AbstractPages;
 import commons.AbstractTest;
 import pageObjects.liveGuru.HomePageObjects;
-import pageObjects.liveGuru.LoginPageObjects;
+import pageObjects.liveGuru.LoginUserPageObjects;
 import pageObjects.liveGuru.MyDashboardPageObjects;
 import pageObjects.liveGuru.RegisterPageObjects;
 
 public class Level_09_Page_Generator extends AbstractTest {
 	private WebDriver driver;
 	HomePageObjects homePage;
-	LoginPageObjects loginPage;
+	LoginUserPageObjects loginPage;
 	RegisterPageObjects registerPage;
 	MyDashboardPageObjects myDashboarbPage;
 	

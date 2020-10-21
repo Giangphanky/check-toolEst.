@@ -14,10 +14,5 @@
 			<class name="com.liveguru.user.Level_12_Upload_Files" />
 		</classes>
 	</test>
-	<!-- <test name="Run on Safari">
-		<parameter name="browser" value="safari" />
-		<classes>
-			<class name="com.liveguru.user.Level_10_Switch_Page_WebDriver_Cycle" />
-		</classes>
-	</test> -->
+	
 </suite> 

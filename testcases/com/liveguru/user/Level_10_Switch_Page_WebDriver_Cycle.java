@@ -21,14 +21,14 @@ import commons.AbstractTest;
 import pageObjects.liveGuru.AboutUsPageObjects;
 import pageObjects.liveGuru.ContactUsPageObjects;
 import pageObjects.liveGuru.HomePageObjects;
-import pageObjects.liveGuru.LoginPageObjects;
+import pageObjects.liveGuru.LoginUserPageObjects;
 import pageObjects.liveGuru.MyDashboardPageObjects;
 import pageObjects.liveGuru.RegisterPageObjects;
 
 public class Level_10_Switch_Page_WebDriver_Cycle extends AbstractTest {
 	private WebDriver driver;
 	HomePageObjects homePage;
-	LoginPageObjects loginPage;
+	LoginUserPageObjects loginPage;
 	RegisterPageObjects registerPage;
 	MyDashboardPageObjects myDashboarbPage;
 	AboutUsPageObjects aboutUsPage;

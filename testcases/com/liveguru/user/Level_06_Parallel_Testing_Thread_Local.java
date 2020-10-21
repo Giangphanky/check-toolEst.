@@ -18,14 +18,14 @@ import org.testng.annotations.Test;
 import commons.AbstractPages;
 import commons.AbstractTest;
 import pageObjects.liveGuru.HomePageObjects;
-import pageObjects.liveGuru.LoginPageObjects;
+import pageObjects.liveGuru.LoginUserPageObjects;
 import pageObjects.liveGuru.MyDashboardPageObjects;
 import pageObjects.liveGuru.RegisterPageObjects;
 
 public class Level_06_Parallel_Testing_Thread_Local extends AbstractTest {
 	WebDriver driver;
 	HomePageObjects homePage;
-	LoginPageObjects loginPage;
+	LoginUserPageObjects loginPage;
 	RegisterPageObjects registerPage;
 	MyDashboardPageObjects myDashboarbPage;
 	
@@ -43,7 +43,7 @@ public class Level_06_Parallel_Testing_Thread_Local extends AbstractTest {
 	public void beforeMethod() {
 		// Click vào link My Account -> Mở ra trang Login
 		homePage.clickToMyAccountLink();
-		loginPage = new LoginPageObjects(driver);
+		loginPage = new LoginUserPageObjects(driver);
 	}
 	
 	@Test

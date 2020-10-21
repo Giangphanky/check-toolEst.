@@ -1,8 +1,11 @@
 package commons;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
+
+import javax.swing.text.StyledEditorKit.BoldAction;
 
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
@@ -227,6 +230,11 @@ public abstract class AbstractPages {
 		elements = finds(driver, xpathValue);
 		return elements.size();
 	}
+	
+	public int countElementNumber(WebDriver driver, String xpathValue, String ... values) {
+		elements = finds(driver, castRestParameter(xpathValue, values));
+		return elements.size();
+	}
 
 	public void checkToCheckBox(WebDriver driver, String xpathValue) {
 		element = find(driver, xpathValue);
@@ -247,6 +255,7 @@ public abstract class AbstractPages {
 	}
 
 	public boolean isElementDisplayed(WebDriver driver, String xpathValue, String... values) {
+		System.out.println(castRestParameter(xpathValue, values));
 		return find(driver, castRestParameter(xpathValue, values)).isDisplayed();
 	}
 
@@ -350,7 +359,6 @@ public abstract class AbstractPages {
 	public void waitElementVisible(WebDriver driver, String xpathValue) {
 		explicitWait = new WebDriverWait(driver, longTimeOut);
 		explicitWait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(byXpath(xpathValue)));
-
 	}
 
 	public void waitElementVisible(WebDriver driver, String xpathValue, String... values) {
@@ -361,15 +369,15 @@ public abstract class AbstractPages {
 	}
 
 	public void waitElementInvisible(WebDriver driver, String xpathValue) {
-		explicitWait = new WebDriverWait(driver, longTimeOut);
+		explicitWait = new WebDriverWait(driver, shortTimeOut);
+		overrideGlobelTimeout(driver, shortTimeOut);
 		explicitWait.until(ExpectedConditions.invisibilityOfElementLocated(byXpath(xpathValue)));
-
+		overrideGlobelTimeout(driver, longTimeOut);
 	}
 
 	public void waitElementClickable(WebDriver driver, String xpathValue) {
 		explicitWait = new WebDriverWait(driver, longTimeOut);
 		explicitWait.until(ExpectedConditions.elementToBeClickable(byXpath(xpathValue)));
-
 	}
 
 	public void waitElementClickable(WebDriver driver, String xpathValue, String... values) {
@@ -383,7 +391,52 @@ public abstract class AbstractPages {
 		explicitWait = new WebDriverWait(driver, longTimeOut);
 		explicitWait.until(ExpectedConditions.presenceOfElementLocated(byXpath(xpathValue)));
 	}
-
+	
+	public void waitToElementUndisplayed(WebDriver driver, String xpathValue) {
+		explicitWait = new WebDriverWait(driver, shortTimeOut);
+		overrideGlobelTimeout(driver, shortTimeOut);
+		explicitWait.until(ExpectedConditions.invisibilityOfElementLocated(byXpath(xpathValue)));
+		overrideGlobelTimeout(driver, longTimeOut);
+	}
+	
+	public boolean isElementUndisplayed(WebDriver driver, String xpathValue) {
+		overrideGlobelTimeout(driver, shortTimeOut);
+		System.out.println("Start Time: "+ new Date().toString());
+		elements = finds(driver, xpathValue);
+		overrideGlobelTimeout(driver, longTimeOut);
+		System.out.println("End Time: "+ new Date().toString());
+		if(elements.size() == 0) {
+			System.out.println("Element isnot in DOM");
+			return true;
+		}
+		else if (elements.size() > 0 && !elements.get(0).isDisplayed()) {
+			System.out.println("Element in DOM but not visible/displayed");
+			return true;
+		}
+		else {
+			System.out.println("Element in DOM and visible");
+			return false;
+		}
+	}
+	
+	public boolean isElementUndisplayed(WebDriver driver, String xpathValue, String... values) {
+		overrideGlobelTimeout(driver, shortTimeOut);
+		elements = finds(driver, castRestParameter(xpathValue, values));
+		overrideGlobelTimeout(driver, longTimeOut);
+		if(elements.size() == 0) {
+			System.out.println("Element isnot in DOM");
+			return true;
+		}
+		else if (elements.size() > 0 && !elements.get(0).isDisplayed()) {
+			System.out.println("Element in DOM but not visible/displayed");
+			return true;
+		}
+		else {
+			System.out.println("Element in DOM and visible");
+			return false;
+		}
+	}
+	
 	public boolean isWindows() {
 		return (osName.toLowerCase().indexOf("win") >= 0);
 	}
@@ -420,7 +473,11 @@ public abstract class AbstractPages {
 		fullFileName = fullFileName.trim();
 		sendKeysToElement(driver, pageUIs.github.AbstractPageUI.UP_LOAD_FILE_TYPE, fullFileName);
 	}
-
+	
+	public void overrideGlobelTimeout(WebDriver driver, long timeOut) {
+		driver.manage().timeouts().implicitlyWait(timeOut, TimeUnit.SECONDS);
+	}
+	
 	public void sleepInSeconds(long time) {
 		try {
 			Thread.sleep(1000 * time);

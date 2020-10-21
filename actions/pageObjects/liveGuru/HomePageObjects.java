@@ -4,6 +4,7 @@ import org.openqa.selenium.WebDriver;
 
 import commons.AbstractPages;
 import pageUIs.liveGuru.HomePageUI;
+import pageUIs.liveGuru.LoginUserPageUI;
 
 public class HomePageObjects extends AbstractPages{
 	private WebDriver driver;
@@ -22,10 +23,25 @@ public class HomePageObjects extends AbstractPages{
 	public HomePageObjects(WebDriver driver) {
 		this.driver = driver;
 	}
-	public LoginPageObjects clickToMyAccountLink() {
+	public LoginUserPageObjects clickToMyAccountLink() {
 		waitElementClickable(driver, HomePageUI.MY_ACCOUNT_LINK);
 		clickToElement(driver, HomePageUI.MY_ACCOUNT_LINK) ;
-		return PageGeneratorManager.getLoginPage(driver);
+		return PageGeneratorManager.getLoginUserPage(driver);
+	}
+	
+	public boolean isMyAccountLinkUndisplayed() {
+		return isElementUndisplayed(driver, HomePageUI.MY_ACCOUNT_HEADER_LINK);
 	}
 
+	public void clickToAccounFootertButton() {
+		waitElementClickable(driver, HomePageUI.ACCOUNT_BUTTON_HEADER);
+		clickToElement(driver, HomePageUI.ACCOUNT_BUTTON_HEADER);
+	}
+	public void clickToSubscribeButton() {
+		waitElementClickable(driver, HomePageUI.SUBSCRIBE_BUTTON);
+		clickToElement(driver, HomePageUI.SUBSCRIBE_BUTTON);
+	}
+	public boolean isSubscribeMsgUndisplayed() {
+		return isElementUndisplayed(driver, HomePageUI.REQUIRED_SUBSCIBE_MSG);
+	}
 }

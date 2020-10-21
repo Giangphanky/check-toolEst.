@@ -1,6 +1,7 @@
 package com.liveguru.user;
 
 import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertTrue;
 
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
@@ -9,6 +10,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
@@ -17,56 +19,55 @@ import org.testng.annotations.Test;
 
 import commons.AbstractPages;
 import commons.AbstractTest;
+import pageObjects.liveGuru.AboutUsPageObjects;
+import pageObjects.liveGuru.ContactUsPageObjects;
 import pageObjects.liveGuru.HomePageObjects;
 import pageObjects.liveGuru.LoginUserPageObjects;
 import pageObjects.liveGuru.MyDashboardPageObjects;
+import pageObjects.liveGuru.PageGeneratorManager;
 import pageObjects.liveGuru.RegisterPageObjects;
+import pageUIs.liveGuru.AbstractPageUI;
 
-public class Level_04_Multi_Browser extends AbstractTest {
-	WebDriver driver;
+public class Level_13_Element_Undisplayed extends AbstractTest {
+	private WebDriver driver;
 	HomePageObjects homePage;
 	LoginUserPageObjects loginPage;
 	RegisterPageObjects registerPage;
 	MyDashboardPageObjects myDashboarbPage;
+	AboutUsPageObjects aboutUsPage;
+	ContactUsPageObjects contactPage;
 	
 	@Parameters({"browser" , "url"})
 	@BeforeClass
 	public void beforeClass(String browserName, String url) {
-		
 		driver = getBrowserDriver(browserName, url);
-		
-		// Get url -> Mở ra trang home
-		homePage = new HomePageObjects(driver);
-	}
-
-	@BeforeMethod
-	public void beforeMethod() {
-		// Click vào link My Account -> Mở ra trang Login
-		homePage.clickToMyAccountLink();
-		loginPage = new LoginUserPageObjects(driver);
+		homePage = PageGeneratorManager.getHomePage(driver);
 	}
 	
 	@Test
-	public void TC_01_LoginWithEmptyEmailAndPassword() {
-
-		// Nhập dữ liệu vào field Email
-		loginPage.inputToEmail("");
-
-		// Nhập dữ liệu vào field Password
-		loginPage.inputToPassword("");
-
-		// Click Login button
-		loginPage.clickToLoginButton();
-
-		// Verify dữ liệu nhập vào
-
-		assertEquals(loginPage.getErrMessageAtEmailTextbox(), "This is a required field.");
-		assertEquals(loginPage.getErrMessageAtPasswordTextbox(), "This is a required field.");
+	public void TC_06_LoginWithValidEmailAndPassword() {
+		
+		
+		Assert.assertTrue(homePage.isMyAccountLinkUndisplayed());
+		
+		homePage.clickToAccounFootertButton();
+		
+		Assert.assertFalse(homePage.isMyAccountLinkUndisplayed());
+		
+		Assert.assertTrue(homePage.isSubscribeMsgUndisplayed());
+		
+		homePage.clickToSubscribeButton();
+		
+		Assert.assertFalse(homePage.isSubscribeMsgUndisplayed());
+		
+		loginPage = homePage.clickToMyAccountLink();
+		
+		Assert.assertTrue(loginPage.isSubscribeMsgUndisplayed());
 	}
-
+	
 	@AfterClass
 	public void afterClass() {
-		driver.quit();
+		removeDriver();
 	}
 
 	private int randomNumber() {

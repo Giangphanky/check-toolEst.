@@ -21,7 +21,7 @@ import commons.AbstractTest;
 import pageObjects.liveGuru.AboutUsPageObjects;
 import pageObjects.liveGuru.ContactUsPageObjects;
 import pageObjects.liveGuru.HomePageObjects;
-import pageObjects.liveGuru.LoginPageObjects;
+import pageObjects.liveGuru.LoginUserPageObjects;
 import pageObjects.liveGuru.MyDashboardPageObjects;
 import pageObjects.liveGuru.PageGeneratorManager;
 import pageObjects.liveGuru.RegisterPageObjects;
@@ -30,7 +30,7 @@ import pageUIs.liveGuru.AbstractPageUI;
 public class Level_11_Dynamic_Locator extends AbstractTest {
 	private WebDriver driver;
 	HomePageObjects homePage;
-	LoginPageObjects loginPage;
+	LoginUserPageObjects loginPage;
 	RegisterPageObjects registerPage;
 	MyDashboardPageObjects myDashboarbPage;
 	AboutUsPageObjects aboutUsPage;
