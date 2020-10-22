@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<suite name="Live Guru" parallel="false">
+	<parameter name="url" value="http://live.demoguru99.com/" />
+	<listeners>
+		<listener class-name="commons.MethodListener" />
+		<listener class-name = "org.uncommons.reportng.HTMLReporter"/>
+<!-- 		<listener class-name = "org.uncommons.reportng.JUnitXMLReporter"/> -->
+	</listeners>
+	<test name="Run on chrome">
+		<parameter name="browser" value="chrome" />
+		<classes>
+			<class name="com.liveguru.user.Level_15_Log4j" />
+		</classes>
+	</test>
+	<test name="Run on firefox">
+		<parameter name="browser" value="firefox" />
+		<classes>
+			<class name="com.liveguru.user.Level_15_Log4j" />
+		</classes>
+	</test>
+	
+</suite> 
