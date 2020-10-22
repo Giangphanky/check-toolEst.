@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<suite name="Live Guru" parallel="false">
+	<listeners>
+		<listener class-name="commons.MethodListener" />
+	</listeners>
+	<parameter name="url" value="http://live.demoguru99.com/" />
+	<test name="Run on firefox">
+		<parameter name="browser" value="firefox" />
+		<classes>
+			<class name="com.liveguru.user.Level_14_Soft_Assert" />
+		</classes>
+	</test>
+</suite> 
